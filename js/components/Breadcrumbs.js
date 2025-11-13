@@ -1,6 +1,5 @@
 import { createElement } from '../utils.js';
 
-// Карта для имен. 'root' - специальный ключ.
 const BREADCRUMB_MAP = {
     root: 'Главная',
     users: 'Пользователи',
@@ -14,7 +13,6 @@ export function createBreadcrumbs(hash) {
     const parts = hash.replace(/^#/, '').split('#').filter(Boolean);
     const navItems = [];
 
-    // 1. Ссылка на Главную (Пользователи)
     const rootHash = '#users';
     navItems.push(
         createElement('a', {
@@ -24,13 +22,11 @@ export function createBreadcrumbs(hash) {
         })
     );
 
-    // 2. Остальные части
     let currentPath = '#';
     parts.forEach((part) => {
         currentPath += part;
         const text = BREADCRUMB_MAP[part] || part;
         const isLast = currentPath === hash;
-        // Не дублируем "Пользователи", если это единственная часть
         if (part !== 'users') { 
             navItems.push(createElement('span', { textContent: ' / ' }));
             navItems.push(
@@ -44,8 +40,6 @@ export function createBreadcrumbs(hash) {
         currentPath += '#';
     });
     
-    // 3. Ссылка "Добавить пользователя"
-    // Показываем ее везде, кроме самой страницы добавления
     if (hash !== '#add-user') {
         navItems.push(createElement('span', { textContent: ' | ' }));
         navItems.push(

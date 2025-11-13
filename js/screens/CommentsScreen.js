@@ -12,13 +12,11 @@ function createCommentCard(comment) {
 }
 
 export async function renderCommentsScreen(searchTerm = '', params) {
-    // params = { userId: '1', postId: '1' }
     const { postId } = params;
     let allComments = await api.getComments();
     if (!allComments) {
         return createElement('p', { textContent: 'Не удалось загрузить комментарии.' });
     }
-    // Фильтруем по ID поста
     if (postId) {
         allComments = allComments.filter(comment => String(comment.postId) === String(postId));
     } else {
@@ -26,7 +24,6 @@ export async function renderCommentsScreen(searchTerm = '', params) {
     }
 
     const lowerSearchTerm = searchTerm.toLowerCase();
-    // Фильтрация [cite: 27]
     const filteredComments = allComments.filter((comment) => {
         return (
             comment.name.toLowerCase().includes(lowerSearchTerm) ||

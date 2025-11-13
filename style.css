@@ -9,7 +9,6 @@
     --shadow: 0 2px 10px rgba(31, 111, 235, 0.08);
 }
 
-/* Базовые стили */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
         Helvetica, Arial, sans-serif;
@@ -25,7 +24,6 @@ body {
     padding: 20px;
 }
 
-/* Хэдер и навигация */
 .header {
     background-color: var(--surface);
     padding: 20px;
@@ -64,7 +62,6 @@ body {
     color: #333;
 }
 
-/* Строка поиска */
 .search-container {
     margin-bottom: 10px;
 }
@@ -86,7 +83,6 @@ body {
     box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.2);
 }
 
-/* Кнопки */
 .button {
     display: inline-block;
     padding: 10px 16px;
@@ -125,7 +121,6 @@ body {
     font-size: 12px;
 }
 
-/* Контент (карточки) */
 .content-area {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -238,7 +233,6 @@ body {
     color: rgba(17, 45, 78, 0.8);
 }
 
-/* Форма добавления */
 .form-container {
     background-color: var(--surface);
     padding: 24px;

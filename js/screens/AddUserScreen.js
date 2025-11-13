@@ -7,7 +7,6 @@ export async function renderAddUserScreen(searchTerm, params, router) {
         onsubmit: (e) => {
             e.preventDefault();
             
-            // Собираем данные пользователя
             const formData = new FormData(e.target);
             const userData = {
                 name: formData.get('name')?.trim(),
@@ -15,16 +14,13 @@ export async function renderAddUserScreen(searchTerm, params, router) {
                 email: formData.get('email')?.trim(),
                 phone: formData.get('phone')?.trim(),
             };
-            // Собираем данные по Todos
             const todoTitles = formData.getAll('todo-title')
                 .map(title => title.trim())
                 .filter(Boolean);
             const userTodos = todoTitles.map(title => ({ title })); 
             
-            // Вызываем API
             api.addUser(userData, userTodos);
             
-            // Перенаправляем на главную
             router.navigate('#users');
             e.target.reset();
             todosContainer.innerHTML = '';
@@ -32,7 +28,6 @@ export async function renderAddUserScreen(searchTerm, params, router) {
         },
     });
 
-    // --- Поля пользователя ---
     form.appendChild(createElement('h2', { textContent: 'Новый пользователь' }));
     form.appendChild(
         createFormGroup('name', 'Имя', 'text', true)
@@ -47,15 +42,12 @@ export async function renderAddUserScreen(searchTerm, params, router) {
         createFormGroup('phone', 'Телефон', 'tel')
     );
 
-    // --- Поля Todos ---
     form.appendChild(createElement('h3', { textContent: 'Задачи (Todos)' }));
     const todosContainer = createElement('div', { id: 'todos-container' });
     
-    // Добавляем одну пустую тудушку
     todosContainer.appendChild(createTodoInput());
     form.appendChild(todosContainer);
     
-    // Кнопка "Добавить еще задачу"
     const addTodoBtn = createElement('button', {
         type: 'button',
         className: 'button',
@@ -66,7 +58,6 @@ export async function renderAddUserScreen(searchTerm, params, router) {
     });
     form.appendChild(addTodoBtn);
 
-    // --- Кнопка отправки ---
     const submitBtn = createElement('button', {
         type: 'submit',
         className: 'button button-primary',
@@ -78,7 +69,6 @@ export async function renderAddUserScreen(searchTerm, params, router) {
     return form;
 }
 
-// --- Вспомогательные функции для формы ---
 function createFormGroup(id, label, type = 'text', required = false) {
     return createElement('div', { className: 'form-group' }, [
         createElement('label', { for: id, textContent: label }),
@@ -98,7 +88,6 @@ function createTodoInput() {
         textContent: 'X',
         className: 'button button-danger button-small',
         onclick: () => {
-            // Удаляем родительский .form-group
             input.parentElement.remove();
         }
     });

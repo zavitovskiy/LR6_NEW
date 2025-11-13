@@ -22,7 +22,6 @@ function createUserCard(user, onDelete) {
     const footerChildren = [
         createElement('a', { href: `#users#${user.id}#todos`, textContent: 'Посмотреть задачи' })
     ];
-    // Если пользователь локальный, добавляем кнопку удаления
     if (user.isLocal) {
         footerChildren.push(
             createElement('button', {
@@ -50,17 +49,15 @@ export async function renderUsersScreen(searchTerm = '', params, router) {
         });
     }
     const lowerSearchTerm = searchTerm.toLowerCase();
-    // Фильтрация [cite: 24]
     const filteredUsers = users.filter((user) => {
         return (
             (user.name && user.name.toLowerCase().includes(lowerSearchTerm)) ||
             (user.email && user.email.toLowerCase().includes(lowerSearchTerm))
         );
     });
-    // Функция удаления, которая вызывает api и перезагружает роутер
     const handleDelete = (userId) => {
         api.deleteUser(userId);
-        router.reload(); // Вызываем метод reload у роутера
+        router.reload();
     };
     const userCards = filteredUsers.map(user => createUserCard(user, handleDelete));
     if (userCards.length === 0) {

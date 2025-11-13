@@ -17,21 +17,17 @@ function createTodoCard(todo) {
 }
 
 export async function renderTodosScreen(searchTerm = '', params) {
-    // params = { userId: '1' }
     const { userId } = params;
     
     let allTodos = await api.getAllTodos();
     if (!allTodos) {
         return createElement('p', { textContent: 'Не удалось загрузить задачи.' });
     }
-    // Фильтруем по ID пользователя, если он есть
     if (userId) {
-        // userId может быть и строкой ('1') и числом (1), приводим к одному типу
         allTodos = allTodos.filter(todo => String(todo.userId) === String(userId));
     }
 
     const lowerSearchTerm = searchTerm.toLowerCase();
-    // Фильтрация [cite: 25]
     const filteredTodos = allTodos.filter((todo) => {
         return todo.title.toLowerCase().includes(lowerSearchTerm);
     });

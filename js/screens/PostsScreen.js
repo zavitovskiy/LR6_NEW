@@ -14,19 +14,16 @@ function createPostCard(post) {
 }
 
 export async function renderPostsScreen(searchTerm = '', params) {
-    // params = { userId: '1' }
     const { userId } = params;
     let allPosts = await api.getPosts();
     if (!allPosts) {
         return createElement('p', { textContent: 'Не удалось загрузить посты.' });
     }
-    // Фильтруем по ID пользователя, если он есть
     if (userId) {
         allPosts = allPosts.filter(post => String(post.userId) === String(userId));
     }
 
     const lowerSearchTerm = searchTerm.toLowerCase();
-    // Фильтрация [cite: 26]
     const filteredPosts = allPosts.filter((post) => {
         return (
             post.title.toLowerCase().includes(lowerSearchTerm) ||
