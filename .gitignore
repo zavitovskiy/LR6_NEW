@@ -1,0 +1,11 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependency directories (safety)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
